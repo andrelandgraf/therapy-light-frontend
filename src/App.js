@@ -36,14 +36,13 @@ class App extends Component {
   }
 
   startListen = () => {
-    const speechToText = new SpeechToText();
-    speechToText.listen().then(this.setRecordedTextAndReact);
+    const speechToText = new SpeechToText(this.setRecordedTextAndReact);
+    speechToText.listen();
   }
 
-  setRecordedTextAndReact = (array) => {
-    const recordedText = array[0] + " " + array[1];
-    this.setState({recordedText});
-    this.playBotResult(recordedText);
+  setRecordedTextAndReact = (string) => {
+    this.setState({string});
+    this.playBotResult(string);
   }
 
   playBotResult = (string) => {
@@ -58,7 +57,6 @@ class App extends Component {
         <header className="App-header">
             <h1>Therapylight - Your Chance to Hack your Relationship</h1>
             <h2>Creative Hack 2018 Netlight & Microsoft Student Partners</h2>
-            <p>{recordedText}</p>
         </header>
         <VideoCanvas stream={stream}/ >
       </div>

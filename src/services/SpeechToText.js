@@ -1,6 +1,10 @@
 export default class SpeechToText {
-    const triggeredFunction 
-    listen = (triggeredFunction) => {
+
+   constructor(callback){
+        this.callback = callback;
+   }
+
+    listen = () => {
         const SpeechRecognition = window.SpeechRecognition
         || window.webkitSpeechRecognition
         || window.mozSpeechRecognition
@@ -14,7 +18,8 @@ export default class SpeechToText {
             lang: 'en-US'
           }
         Object.assign(speechRecognition, defaults);
-        speechRecognition.addEventListener('result', this.bindResult());
+        speechRecognition.addEventListener('result', this.bindResult);
+        console.log("start listening...");
         speechRecognition.start();
     }
 
@@ -33,9 +38,9 @@ export default class SpeechToText {
             interimTranscript += event.results[i][0].transcript
           }
         }
-        console.log(interimTranscript);
-        console.log(finalTranscript);
-        triggeredFunction((interimTranscript, finalTranscript));
+        console.log("InterimTranscript: " + interimTranscript);
+        console.log("FinalTranscript: " + finalTranscript);
+        this.callback(finalTranscript);
     }
 
 }
