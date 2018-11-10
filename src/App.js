@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import SpeechToText from './services/SpeechToText';
 import TextToSpeech from './services/TextToSpeech';
-import VideoCanvas from './components/VideoCanvas';
+import WebcamCapture from "./components/WebcamCapture";
 import './App.css';
 
 class App extends Component {
@@ -26,6 +26,8 @@ class App extends Component {
           });
     }
   }
+
+
 
   setStream = (stream) => {
     console.log(stream);
@@ -58,7 +60,7 @@ class App extends Component {
             <h1>Therapylight - Your Chance to Hack your Relationship</h1>
             <h2>Creative Hack 2018 Netlight & Microsoft Student Partners</h2>
         </header>
-        <VideoCanvas stream={stream}/ >
+        <WebcamCapture />
       </div>
     );
   }
