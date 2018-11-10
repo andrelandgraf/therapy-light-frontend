@@ -3,6 +3,7 @@ import SpeechToText from '../services/SpeechToText';
 import TextToSpeech from '../services/TextToSpeech';
 import WebcamCapture from "./WebcamCapture";
 import '../styles/Therapy.css';
+import TherapyBot from '../services/TherapyBot';
 
 class Therapy extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class Therapy extends Component {
     this.state = {
       stream: undefined,
       recordedText: '',
+      bot: undefined
     }
   }
 
@@ -25,9 +27,12 @@ class Therapy extends Component {
               console.log(error.message); 
           });
     }
+    this.setState({bot: new TherapyBot(this.playText)})
   }
 
-
+  emotionsDetected = (emotions) => {
+    this.state.bot.setEmotions(emotions);
+  }
 
   setStream = (stream) => {
     console.log(stream);
@@ -44,10 +49,11 @@ class Therapy extends Component {
 
   setRecordedTextAndReact = (string) => {
     this.setState({string});
-    this.playBotResult(string);
+    this.state.bot.setRecordedText(string);
+    // this.playBotResult(string);
   }
 
-  playBotResult = (string) => {
+  playText = (string) => {
     const textToSpeechService = new TextToSpeech();
     textToSpeechService.say(string);
   }
@@ -60,7 +66,7 @@ class Therapy extends Component {
             <h1>Therapylight - Your Chance to Hack your Relationship</h1>
             <h2>Creative Hack 2018 Netlight & Microsoft Student Partners</h2>
         </header>
-        <WebcamCapture />
+        <WebcamCapture setEmotions={this.emotionsDetected}/>
       </div>
     );
   }
