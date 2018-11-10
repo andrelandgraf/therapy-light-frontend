@@ -44,7 +44,6 @@ class WebcamCapture extends React.Component {
           return;
       }
       let jsonArray = JSON.parse(body);
-      console.log(jsonArray);
       jsonArray = jsonArray.slice(0,2);
       let emotions = [];
       let faceRectangles = [];
@@ -54,9 +53,27 @@ class WebcamCapture extends React.Component {
         console.log(emotion);
         faceRectangles.push(element.faceRectangle);
       });
-      console.log(faceRectangles);
+      this.addRectanglesToFaces(faceRectangles);
     });
   };
+
+  addRectanglesToFaces = (faceRectangles) => {  
+      console.log("draw");
+      console.log(faceRectangles);    
+      var canvas = this.webcam.canvas;
+      var context = canvas.getContext('2d');
+      context.strokeStyle = 'green';
+      context.strokeRect(10, 10, 100, 100);   
+      //context.clearRect(0, 0, canvas.width, canvas.height);
+      // faceRectangles.forEach(function(rect) {
+      //   context.strokeStyle = '#a64ceb';
+      //   context.strokeRect(rect.top, rect.left, rect.width, rect.height);
+      //   context.font = '11px Helvetica';
+      //   context.fillStyle = "#fff";
+      //   context.fillText('x: ' + rect.top + 'px', rect.left + rect.width + 5, rect.height + 11);
+      //   context.fillText('y: ' + rect.top + 'px', rect.left + rect.width + 5, rect.height + 22);
+      // });
+  }
 
   convertDataURIToBinary = (dataURI) => {
     var BASE64_MARKER = ';base64,';
