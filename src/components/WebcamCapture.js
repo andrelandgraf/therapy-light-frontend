@@ -43,10 +43,18 @@ class WebcamCapture extends React.Component {
           console.log('Error: ', error);
           return;
       }
-      let jsonResponse = JSON.stringify(JSON.parse(body), null, '  ');
-      console.log('JSON Response\n');
-      console.log(jsonResponse);
-      // console.log(jsonResponse[0].faceAttributes.emotion);
+      let jsonArray = JSON.parse(body);
+      console.log(jsonArray);
+      jsonArray = jsonArray.slice(0,2);
+      let emotions = [];
+      let faceRectangles = [];
+      jsonArray.forEach(element => {
+        let {emotion} = element.faceAttributes
+        emotion = Object.keys(emotion).reduce(function(a, b){ return emotion[a] > emotion[b] ? a : b });
+        console.log(emotion);
+        faceRectangles.push(element.faceRectangle);
+      });
+      console.log(faceRectangles);
     });
   };
 
