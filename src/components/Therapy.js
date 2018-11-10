@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SpeechToText from '../services/SpeechToText';
 import TextToSpeech from '../services/TextToSpeech';
 import WebcamCapture from "./WebcamCapture";
-import './App.css';
+import '../styles/Therapy.css';
 
 class Therapy extends Component {
   constructor(props) {
