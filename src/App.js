@@ -24,6 +24,8 @@ class App extends Component {
     }
   }
 
+
+
   setStream = (stream) => {
     console.log(stream);
     // for debugging make variable available to browser console:
@@ -39,7 +41,7 @@ class App extends Component {
             <h1>Therapylight - Your Chance to Hack your Relationship</h1>
             <h2>Creative Hack 2018 Netlight & Microsoft Student Partners</h2>
         </header>
-        <VideoCanvas stream={stream}/ >
+        <VideoCanvas stream={stream} />
       </div>
     );
   }
