@@ -1,25 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import VideoCanvas from './components/VideoCanvas';
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.stream = undefined;
+  }
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+            <h1>Therapylight - Your Chance to Hack your Relationship</h1>
+            <h2>Creative Hack 2018 Netlight & Microsoft Student Partners</h2>
         </header>
+        <VideoCanvas/ >
       </div>
     );
   }
