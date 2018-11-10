@@ -15,7 +15,7 @@ class VideoCanvas extends React.Component {
     render(){
         return (
             <div id="video-container">
-                <video autoPlay={true} id="video-element"></video>
+                <video autoPlay={true} id="video-element" muted={true}></video>
             </div>
         );
     }

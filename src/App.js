@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import SpeechToText from './services/SpeechToText';
+import TextToSpeech from './services/TextToSpeech';
 import VideoCanvas from './components/VideoCanvas';
 import './App.css';
 
@@ -7,6 +9,7 @@ class App extends Component {
     super(props);
     this.state = {
       stream: undefined,
+      recordedText: '',
     }
   }
 
@@ -19,7 +22,7 @@ class App extends Component {
           .then(this.setStream)
           .catch(function (error) {
               console.log("Something went wrong!");
-              console.log(error.message);
+              console.log(error.message); 
           });
     }
   }
@@ -29,15 +32,33 @@ class App extends Component {
     // for debugging make variable available to browser console:
     // window.stream = stream;
     this.setState({stream: stream});
+    this.startListen();
+  }
+
+  startListen = () => {
+    const speechToText = new SpeechToText();
+    speechToText.listen().then(this.setRecordedTextAndReact);
+  }
+
+  setRecordedTextAndReact = (array) => {
+    const recordedText = array[0] + " " + array[1];
+    this.setState({recordedText});
+    this.playBotResult(recordedText);
+  }
+
+  playBotResult = (string) => {
+    const textToSpeechService = new TextToSpeech();
+    textToSpeechService.say(string);
   }
 
   render() {
-    const { stream } = this.state;
+    const { stream, recordedText } = this.state;
     return (
       <div className="App">
         <header className="App-header">
             <h1>Therapylight - Your Chance to Hack your Relationship</h1>
             <h2>Creative Hack 2018 Netlight & Microsoft Student Partners</h2>
+            <p>{recordedText}</p>
         </header>
         <VideoCanvas stream={stream}/ >
       </div>
