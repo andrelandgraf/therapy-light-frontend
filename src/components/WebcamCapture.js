@@ -172,7 +172,6 @@ class WebcamCapture extends React.Component {
         />
         <div className="facebox" id="facebox"> </div>
         <div className="facebox2" id="facebox2"> </div>
-        <button onClick={this.capture}>Capture photo</button>
       </div>
     );
   }
