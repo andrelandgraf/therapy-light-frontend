@@ -16,6 +16,20 @@ const params = {
 };
 
 class WebcamCapture extends React.Component {
+
+    componentDidMount = () => {
+      setTimeout(() => {
+        this.inverval = setInterval(async () => {
+          this.capture();
+        }, 3000);
+      }, 1000);
+}
+
+  componentWillUnmount = () => {
+    // use intervalId from the state to clear the interval
+    clearInterval(this.inverval);
+  }
+
   setRef = webcam => {
     this.webcam = webcam;
   };
@@ -27,6 +41,8 @@ class WebcamCapture extends React.Component {
   };
 
   send = (imageData) => {
+    const faceBox = document.getElementById("facebox");
+    const faceBox2 = document.getElementById("facebox2");
     const options = {
       uri: uriBase,
       qs: params,
@@ -45,18 +61,82 @@ class WebcamCapture extends React.Component {
       }
       let jsonArray = JSON.parse(body);
       console.log(jsonArray);
+      if (Array.isArray(jsonArray)) {
       jsonArray = jsonArray.slice(0,2);
       let emotions = [];
       let faceRectangles = [];
+      if (jsonArray.length < 1) {
+        faceBox.style.cssText = `
+              width: 0px;
+              height: 0px;
+              top: 0px;
+              left: 0px;
+              border-width: 0px;
+            `;
+      }
+      if (jsonArray.length < 2) {
+        faceBox2.style.cssText = `
+              width: 0px;
+              height: 0px;
+              top: 0px;
+              left: 0px;
+              border-width: 0px;
+            `;
+      }
       jsonArray.forEach(element => {
         let {emotion} = element.faceAttributes
         emotion = Object.keys(emotion).reduce(function(a, b){ return emotion[a] > emotion[b] ? a : b });
         emotions.push(emotion);
         faceRectangles.push(element.faceRectangle);
+        if (faceRectangles.length > 0) {
+          const { width, height, top, left } = faceRectangles[0];
+          faceBox.style.cssText = `
+              position: absolute;
+              z-index:999999 !important;
+              width: ${width + 10}px;
+              height: ${height + 30}px;
+              top: ${top + 325}px;
+              left: ${left + 540}px;
+              border-style: solid;
+              border-width: 2px;
+              color: green;
+            `;
+        }
+        if (faceRectangles[1]) {
+          const { width, height, top, left } = faceRectangles[1];
+
+          faceBox2.style.cssText = `
+              position: absolute;
+              z-index:999999 !important;
+              width: ${width + 10}px;
+              height: ${height + 30}px;
+              top: ${top + 325}px;
+              left: ${left + 540}px;
+              border-style: solid;
+              border-width: 2px;
+              color: blue;
+            `;
+        } 
       });
       this.props.setEmotions(emotions)
-    });
-  };
+    } else {
+        faceBox.style.cssText = `
+              width: 0px;
+              height: 0px;
+              top: 0px;
+              left: 0px;
+              border-width: 0px;
+            `;
+        faceBox2.style.cssText = `
+              width: 0px;
+              height: 0px;
+              top: 0px;
+              left: 0px;
+              border-width: 0px;
+            `;
+    }
+  });
+}
 
   convertDataURIToBinary = (dataURI) => {
     var BASE64_MARKER = ';base64,';
@@ -85,12 +165,13 @@ class WebcamCapture extends React.Component {
           audio={false}
           height={350}
           ref={this.setRef}
-          screenshotFormat="image/octet-stream"
+          screenshotFormat="image/png"
           screenshotQuality={1.0}
           width={350}
           videoConstraints={videoConstraints}
         />
-        <button onClick={this.capture}>Capture photo</button>
+        <div className="facebox" id="facebox"> </div>
+        <div className="facebox2" id="facebox2"> </div>
       </div>
     );
   }
