@@ -59,7 +59,7 @@ class Therapy extends Component {
   }
 
   render() {
-    const { stream, recordedText } = this.state;
+    // const { stream, recordedText } = this.state;
     return (
       <div className="App">
         <header className="App-header">
