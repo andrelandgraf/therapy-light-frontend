@@ -4,6 +4,7 @@ import TextToSpeech from '../services/TextToSpeech';
 import WebcamCapture from "./WebcamCapture";
 import '../styles/Therapy.css';
 import TherapyBot from '../services/TherapyBot';
+import Emojis from './Emojis';
 
 class Therapy extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class Therapy extends Component {
     this.state = {
       stream: undefined,
       recordedText: '',
-      bot: undefined
+      bot: new TherapyBot(this.playText)
     }
   }
 
@@ -27,11 +28,11 @@ class Therapy extends Component {
               console.log(error.message); 
           });
     }
-    this.setState({bot: new TherapyBot(this.playText)})
   }
 
   emotionsDetected = (emotions) => {
     this.state.bot.setEmotions(emotions);
+    this._emojis.updateEmotions(emotions);
   }
 
   setStream = (stream) => {
@@ -50,7 +51,6 @@ class Therapy extends Component {
   setRecordedTextAndReact = (string) => {
     this.setState({string});
     this.state.bot.setRecordedText(string);
-    // this.playBotResult(string);
   }
 
   playText = (string) => {
@@ -66,7 +66,14 @@ class Therapy extends Component {
             <h1>Therapylight - Your Chance to Hack your Relationship</h1>
             <h2>Creative Hack 2018 Netlight & Microsoft Student Partners</h2>
         </header>
-        <WebcamCapture setEmotions={this.emotionsDetected}/>
+        <div>
+          <div className="emojis" style={{width: '10%', float: 'left', marginTop: '125px'}}>
+            <Emojis ref={(emojis) => {this._emojis = emojis;}}></Emojis>
+          </div>
+          <div className="webcam" style={{marginLeft: '10%'}}>
+            <WebcamCapture setEmotions={this.emotionsDetected}/>
+          </div>
+        </div>
       </div>
     );
   }

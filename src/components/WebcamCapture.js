@@ -37,7 +37,7 @@ class WebcamCapture extends React.Component {
           'Ocp-Apim-Subscription-Key': subscriptionKey
       }
     };
-
+    // this.props.setEmotions(["anger", "happiness"]);
     request.post(options, (error, response, body) => {
       if (error) {
           console.log('Error: ', error);

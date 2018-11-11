@@ -1,6 +1,7 @@
 export default class TherapyBot {
 
     constructor(callback){
+        this.emotions = [];
         this.playText = callback;
    }
 
