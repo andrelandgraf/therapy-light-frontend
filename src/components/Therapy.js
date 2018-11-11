@@ -66,7 +66,7 @@ class Therapy extends Component {
             <h1>Therapylight - Your Chance to Hack your Relationship</h1>
             <h2>Creative Hack 2018 Netlight & Microsoft Student Partners</h2>
         </header>
-        <div>
+        <div style={{width: '50%'}}>
           <div className="emojis" style={{width: '10%', float: 'left', marginTop: '125px'}}>
             <Emojis ref={(emojis) => {this._emojis = emojis;}}></Emojis>
           </div>

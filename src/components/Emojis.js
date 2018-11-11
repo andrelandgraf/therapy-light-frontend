@@ -4,7 +4,8 @@ class Emojis extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            emojiSources: []
+            emojiSources: [],
+            colors: ['green', 'blue'],
         }
     }
 
@@ -19,7 +20,7 @@ class Emojis extends React.Component {
     render() {
         return (
             <div>
-            {this.state.emojiSources.map((emojiSrc, i) => <img style={{alignItems: 'center'}} width="50px" src={emojiSrc}></img>)}
+            {this.state.emojiSources.map((emojiSrc, i) => <img style={{alignItems: 'center', backgroundColor: this.state.colors[i]}} width="50px" src={emojiSrc}></img>)}
             </div>
         );
     }
