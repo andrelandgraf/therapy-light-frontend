@@ -21,7 +21,7 @@ class WebcamCapture extends React.Component {
       setTimeout(() => {
         this.inverval = setInterval(async () => {
           this.capture();
-        }, 3000);
+        }, 1000);
       }, 1000);
 }
 

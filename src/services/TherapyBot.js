@@ -7,31 +7,44 @@ export default class TherapyBot {
 
     setEmotions = (emotions) => {
         this.emotions = emotions;
-        let sentence = "";
-        if (emotions.includes("fear")) {
-            sentence = "fear";
-        } else if (emotions.includes("anger")) {
-            sentence = "anger";
-        } else if (emotions.includes("contempt")) {
-            sentence = "contempt";
-        } else if (emotions.includes("disgust")) {
-            sentence = "disgust";
-        } else if (emotions.includes("surprise")) {
-            sentence = "surprise";
-        } else if (emotions.includes("sadness")) {
-            sentence = "sadness";
-        } else if (emotions.includes("happiness")) {
-            sentence = "happiness";
-        } else if (emotions.includes("neutral")) {
-            sentence = "neutral";
+        let sentence = undefined;
+        if (emotions.includes("anger") && emotions.includes("sadness")) {
+            sentence = "Ozan, Please calm down. You are making Haydar sad.";
+        } else if (emotions.includes("anger") || emotions.includes("sadness")) {
+            sentence = "Ozan, Please calm down. You are making Haydar sad.";
+        } 
+        // if (emotions.includes("anger")) {
+        //     sentence = sentence + "Ozan, Please calm down. ";
+        // } 
+        // // if (emotions.includes("contempt")) {
+        // //     sentence = sentence + "contempt";
+        // // }
+        // if (emotions.includes("disgust")) {
+        //     sentence = sentence + "Why are you disgusted? ";
+        // }
+        // // if (emotions.includes("surprise")) {
+        // //     sentence = sentence + "surprise";
+        // // }
+        // if (emotions.includes("sadness")) {
+        //     sentence = sentence + "You make Haydar sad.";
+        // }
+        // // if (emotions.includes("happiness")) {
+        // //     sentence = sentence + "happiness";
+        // // }
+        // // if (emotions.includes("neutral")) {
+        // //     sentence = sentence + "neutral";
+        // // }
+        if (sentence != undefined && this.previousSentence != sentence) {
+            console.log(sentence);
+            this.playText(sentence);
+            this.previousSentence = sentence;
         }
-        console.log(sentence);
-        this.playText(sentence);
     }
 
     setRecordedText = (recordedText) => {
-        if (recordedText.toLowerCase().includes("fuck")) {
-            this.playText("Language")
+        console.log(recordedText);
+        if (recordedText.toLowerCase().includes("idiot")) {
+            this.playText("Ozan, Watch your language!")
         }
     }
 }
