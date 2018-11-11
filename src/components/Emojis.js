@@ -20,7 +20,7 @@ class Emojis extends React.Component {
     render() {
         return (
             <div>
-            {this.state.emojiSources.map((emojiSrc, i) => <img style={{alignItems: 'center', backgroundColor: this.state.colors[i]}} width="50px" src={emojiSrc}></img>)}
+                {this.state.emojiSources.map((emojiSrc, i) => <img alt={this.state.colors[i]} style={{alignItems: 'center', backgroundColor: this.state.colors[i]}} width="50px" src={emojiSrc}></img>)}
             </div>
         );
     }

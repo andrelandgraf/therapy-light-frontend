@@ -88,15 +88,17 @@ class WebcamCapture extends React.Component {
         emotion = Object.keys(emotion).reduce(function(a, b){ return emotion[a] > emotion[b] ? a : b });
         emotions.push(emotion);
         faceRectangles.push(element.faceRectangle);
+      });
+      this.props.setEmotions(emotions)
         if (faceRectangles.length > 0) {
           const { width, height, top, left } = faceRectangles[0];
           faceBox.style.cssText = `
               position: absolute;
               z-index:999999 !important;
-              width: ${width + 10}px;
-              height: ${height + 30}px;
-              top: ${top + 325}px;
-              left: ${left + 540}px;
+              width: ${width}px;
+              height: ${height}px;
+              top: ${top}px;
+              left: ${left}px;
               border-style: solid;
               border-width: 2px;
               color: green;
@@ -108,17 +110,15 @@ class WebcamCapture extends React.Component {
           faceBox2.style.cssText = `
               position: absolute;
               z-index:999999 !important;
-              width: ${width + 10}px;
-              height: ${height + 30}px;
-              top: ${top + 325}px;
-              left: ${left + 540}px;
+              width: ${width}px;
+              height: ${height}px;
+              top: ${top}px;
+              left: ${left}px;
               border-style: solid;
               border-width: 2px;
               color: blue;
             `;
         } 
-      });
-      this.props.setEmotions(emotions)
     } else {
         faceBox.style.cssText = `
               width: 0px;
@@ -163,11 +163,11 @@ class WebcamCapture extends React.Component {
       <div>
         <Webcam
           audio={false}
-          height={350}
+          height={700}
           ref={this.setRef}
           screenshotFormat="image/png"
           screenshotQuality={1.0}
-          width={350}
+          width={1280}
           videoConstraints={videoConstraints}
         />
         <div className="facebox" id="facebox"> </div>
